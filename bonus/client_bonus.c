@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bamghoug <bamghoug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 18:30:30 by bamghoug          #+#    #+#             */
-/*   Updated: 2021/06/08 18:19:42 by bamghoug         ###   ########.fr       */
+/*   Updated: 2021/06/08 18:26:14 by bamghoug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "../minitalk.h"
 
 int	ft_strlen(char const *s)
 {
@@ -45,6 +45,7 @@ int	send_msg(char **av, int pid)
 int	main (int ac, char **av)
 {
 	int		pid;
+	int		p;
 
 	if (ac < 3)
 	{
@@ -54,8 +55,14 @@ int	main (int ac, char **av)
 	else
 	{
 		pid = ft_atoi(av[1]);
+		p = getpid();
+		msg("message from pid N ", pid);
+		msg(ft_itoa(p), pid);
+		msg(" : ", pid);
 		if (send_msg(av, pid) != 0)
-			write(1, "Error!\n", 7);
+			write(1, "Error! Pid Not Found.\n", 22);
+		else
+			write(1, "The message successfully sent\n", 30);
 	}
 	return (0);
 }
